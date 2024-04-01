@@ -1,0 +1,41 @@
+151. Reverse Words in a String
+class Solution:
+    def reverseWords(self, s):
+
+        return " ".join(s.split()[::-1])
+            
+
+
+345. Reverse Vowels of a String
+
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        vowels = set(list("AaEeIiOoUu"))
+        s= list(s)
+        ptr1, ptr2 = 0, len(s)-1
+
+        while ptr1 < ptr2:
+            if s[ptr1] in vowels and s[ptr2] in vowels:
+                s[ptr1],s[ptr2] = s[ptr2], s[ptr1]
+
+                ptr1+= 1
+                ptr2-= 1
+            if s[ptr1] not in vowels:
+                ptr1+=1
+            if s[ptr2] not in vowels:
+                ptr2-=1
+        return ''.join(s)
+
+605. Can Place Flowers
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        if n ==0: 
+            return True
+
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed)-1  or  flowerbed[i+1]==0):
+                flowerbed[i]=1
+                n-=1
+                if n == 0:
+                    return True
+        return False
