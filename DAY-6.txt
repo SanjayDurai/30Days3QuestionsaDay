@@ -1,0 +1,35 @@
+238. Product of Array Except Self
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        l = len(nums)
+        sol =[1]*l
+        pre = 1
+        post =1
+        for i in range(l):
+            sol[i]*=pre
+            pre*=nums[i]
+            sol[l-i-1]*=post
+            post*=nums[l-i-1]
+        return sol
+
+287. Find the Duplicate Number
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = set()
+        for i in nums:
+            if i in seen:
+                return i
+            seen.add(i)
+
+442. Find All Duplicates in an Array
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        seen = set()
+        dup = set()
+        for i in nums:
+            if i in seen:
+                dup.add(i)
+            else:
+                seen.add(i)
+        return dup
+
