@@ -1,0 +1,72 @@
+128. Longest Consecutive Sequence
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        uniques = set(nums)
+        length = 0
+
+        while uniques:
+            high = low = uniques.pop()
+            while high+1 in uniques or low-1 in uniques:
+                if high+1 in uniques:
+                    uniques.remove(high+1)
+                    high+=1
+                if low-1 in uniques:
+                    uniques.remove(low-1)
+                    low-=1
+                
+            length = max(high - low +1,length)
+        return length
+
+
+637. Average of Levels in Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        q = deque([root])
+        answer = []
+        while q:
+            level =0;qLen = len(q)
+            for i in range(qLen):
+                node= q.popleft()
+                level += float(node.val)
+                if node.left:q.append(node.left)
+                if node.right:q.append(node.right)
+            answer.append(level/qLen)    
+        return answer
+
+111. Minimum Depth of Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+
+        if not root:
+            return 0
+        q = deque([root])
+        count =0
+
+        while q:
+            count+=1
+            qLen= len(q)
+            for i in range(qLen):
+                node = q.popleft()
+                
+                if not node.left  and not node.right:
+                    return count
+                if node.left:
+                    q.append(node.left) 
+                if node.right:
+                    q.append(node.right)
+            
+
+            
+        
