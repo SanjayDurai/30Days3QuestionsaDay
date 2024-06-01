@@ -1,0 +1,58 @@
+100. Same Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        if (not p or not q)  or (p.val != q.val):
+            return False
+        return (self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right))
+   
+
+112. Path Sum
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root:
+            return False
+
+        targetSum -= root.val
+        if not root.left and not root.right:
+            return  targetSum == 0
+        
+        return (self.hasPathSum(root.left,targetSum) or self.hasPathSum(root.right,targetSum))
+       
+        
+104. Maximum Depth of Binary Tree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        def dfs(root,count):
+            if not root:
+                return count
+            return max(dfs(root.left,count+1),dfs(root.right,count+1))
+        
+        return dfs(root,0)
+                   
+
+
+        
+
+      
+
+
