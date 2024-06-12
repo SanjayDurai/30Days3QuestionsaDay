@@ -1,0 +1,50 @@
+217. Contains Duplicate
+class Solution(object):
+    def containsDuplicate(self, nums):            
+        a=set(nums)
+        b=len(a)
+        c=len(nums)
+        if b==c:
+            return False
+        else:
+            return True
+
+
+57. Insert Interval
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res =[]
+        for i in range(len(intervals)):
+            if newInterval[1] < intervals[i][0]:
+                res.append(newInterval)
+                return res + intervals[i:]
+            elif newInterval[0] > intervals[i][1]:
+                res.append(intervals[i])
+            else:
+                newInterval = [min(newInterval[0],intervals[i][0]), max(newInterval[1],intervals[i][1])]
+        res.append(newInterval)
+        return res
+
+15. 3Sum
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res= []
+        nums.sort()
+        for i in range(len(nums)-2):
+            if i>0 and nums[i]== nums[i-1]:
+                continue
+            left= i+1
+            right= len(nums) -1
+            while left < right:
+                total = nums[i] + nums[left] +nums[right]
+                if total == 0:
+                    res.append([nums[i],nums[left],nums[right]])
+                    left+=1
+                    while nums[left-1] == nums[left] and left<right:
+                        left+=1
+                elif total<0:
+                    left+=1
+                else:
+                    right-=1
+        return res
+               
