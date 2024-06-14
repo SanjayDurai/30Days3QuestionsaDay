@@ -1,0 +1,39 @@
+39. Combination Sum
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        def combination(candid,arr,sm):
+            if sm == target:
+                res.append(arr)
+            elif sm > target:
+                return 
+            for i in range(len(candid)):
+                combination(candid[i:],arr+[candid[i]],sm+candid[i])
+        combination(candidates,[],0)
+        return res
+
+238. Product of Array Except Self
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        l = len(nums)
+        sol =[1]*l
+        pre = 1
+        post =1
+        for i in range(l):
+            sol[i]*=pre
+            pre*=nums[i]
+            sol[l-i-1]*=post
+            post*=nums[l-i-1]
+        return sol
+
+56. Merge Intervals
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals = sorted(intervals, key = lambda x: x[0])
+        ans =[]
+        for interval in intervals:
+            if not ans or ans[-1][1] < interval[0]:
+                ans.append(interval)
+            else:
+                ans[-1][1] = max(interval[1],ans[-1][1])
+        return ans
