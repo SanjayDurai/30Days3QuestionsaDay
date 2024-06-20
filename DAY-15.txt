@@ -1,0 +1,54 @@
+75. Sort Colors
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        l,m,r=0,0,len(nums)-1
+        while m<=r:
+            if nums[m] == 0:
+                nums[l],nums[m]= nums[m],nums[l]
+                l+=1
+                m+=1
+            elif nums[m] == 1:
+                m+=1
+            else:
+                nums[r],nums[m] = nums[m], nums[r]
+                r-=1
+11. Container With Most Water
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        max_water = 0
+        i = 0
+        j = len(height) - 1
+        while i < j:
+            l = j - i
+            if height[j] > height[i]:
+                h = height[i]
+                i += 1
+            else:
+                h = height[j]
+                j -= 1
+
+            container = l*h
+            if container > max_water:
+                max_water = container
+
+        return max_water
+
+134. Gas Station
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if (sum(gas) - sum(cost) < 0):
+            return -1
+        
+        gas_tank, start_index = 0, 0
+        
+        for i in range(len(gas)):
+            gas_tank += gas[i] - cost[i]
+            
+            if gas_tank < 0:
+                start_index = i+1
+                gas_tank = 0
+            
+        return start_index
