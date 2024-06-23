@@ -1,0 +1,63 @@
+150. Evaluate Reverse Polish Notation
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stk = []
+        for token in tokens:
+            if token in "+-*/":
+                b = stk.pop()
+                a = stk.pop()
+                if token == "+":
+                    stk.append(a+b)
+                elif token == "-":
+                    stk.append(a-b)
+                elif token == "*":
+                    stk.append(a*b)
+                else:
+                    stk.append(int(a/b))
+            else:
+                stk.append(int(token))
+        return stk[0]
+
+155. Min Stack
+class MinStack:
+
+    def __init__(self):
+        self.stk = []
+        self.minstk = []
+
+    def push(self, val: int) -> None:
+            self.stk.append(val)
+            if self.minstk:
+                val = min(self.minstk[-1],val)
+            self.minstk.append(val)
+
+    def pop(self) -> None:
+            self.stk.pop()
+            self.minstk.pop()
+
+    def top(self) -> int:
+        return self.stk[-1]
+
+    def getMin(self) -> int:
+        return  self.minstk[-1]
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(val)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
+
+739. Daily Temperatures
+class Solution:
+    def dailyTemperatures(self, temps):
+        results = [0] * len(temps)
+        stack = []
+        for i, temp in enumerate(temps):
+            while stack and temps[stack[-1]] < temp:
+                index = stack.pop()
+                results[index] = i - index
+            stack.append(i)
+
+        return results
