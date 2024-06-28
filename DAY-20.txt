@@ -1,0 +1,53 @@
+438. Find All Anagrams in a String
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        p = ''.join(sorted(p))
+        res = []
+        ws = ""
+        wl = 0 
+        for i in s:
+            ws +=i
+            if len(ws) == len(p):
+                if ''.join(sorted(ws)) == p:
+                    res.append(wl)
+                ws = ws[1:]
+                wl+=1
+        return res
+
+
+
+49. Group Anagrams
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        d = defaultdict(list)
+        for i in strs:
+            sorted_str = ''.join(sorted(i))
+            d[sorted_str].append(i)
+        return list(d.values())
+
+
+21. Merge Two Sorted Lists
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = tail = ListNode()
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        
+        if l1:
+            tail.next = l1
+        if l2:
+            tail.next = l2
+        return dummy.next
+
