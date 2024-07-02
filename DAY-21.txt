@@ -1,0 +1,29 @@
+1662. Check If Two String Arrays are Equivalent
+class Solution:
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+            Word1 = ''.join(word1)
+            Word2 = ''.join(word2)
+            return Word1 == Word2
+
+2114. Maximum Number of Words Found in Sentences
+class Solution:
+    def mostWordsFound(self, sentences: List[str]) -> int:
+        
+        maxl = 0
+        for i in sentences:
+            words = i.split(" ")
+            if len(words) > maxl:
+                maxl = len(words)
+        return maxl
+
+
+2942. Find Words Containing Character
+
+class Solution:
+    def findWordsContaining(self, words: List[str], x: str) -> List[int]:
+        res=[]
+        for i, word in enumerate(words):
+            if x in word:
+                res.append(i)
+        return res
+
