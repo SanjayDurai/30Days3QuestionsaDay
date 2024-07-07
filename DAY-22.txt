@@ -1,0 +1,128 @@
+1)Problem: Liam, a beginner mathematician and a third-year student at elementary school, is learning the addition operation. His teacher has given him a sum to calculate, which only includes the numbers 1, 2, and 3. However, Liam is still getting the hang of counting and can only add numbers if they are in non-decreasing order. For example, he can’t calculate the sum 1+3+2+1, but he can calculate sums like 1+1+2 or 3+3. Given a sum written on the board, rearrange the numbers so that Liam can calculate it easily. Write a program to take the sum as input, rearrange the numbers in non-decreasing order, and print the result.
+
+Input Format: A single string representing the sum, consisting of n numbers and separated by plus signs. (1 ≤ n ≤ 1000)
+
+Output Format: A single string representing the sum, consisting of numbers and separated by plus signs.
+
+Sample Input:
+
+3+2+1
+
+Sample Output:
+
+1+2+3
+
+SOLUTION:
+
+sum_str = input()
+s = sums_str.split("+")
+s.sort()
+res=""
+for i in range(len(s)):
+    if i != len(s)-1:
+        res = res+s[i]+"+"
+    else:
+        res = res+s[i]
+print(res)
+
+
+2)Problem: You have a deck of n cards, with each card being one of k types. The sequence a1,a2,…,an represents the types of cards in the deck from top to bottom. Note that both n and k are even numbers. In the game, you start by drawing two cards from your hand. If both are of the same type, you earn yourself 1 point and discard them; otherwise, they are added back to your hand in their initial order. Every step consists of two actions: draw two cards from your hands; if they are not equal add them back exactly at two places away from where you took them. During each turn of the game, the following steps occur: choose and play exactly TWO cards from your hands. The task is to determine maximum number of points you can earn.
+
+Input Format: The first line contains two integers n and k. The second line contains n integers ai denoting ai…an. (Constraints: n and k must be even. 2<=n<=1000, 2<=k<=1000)
+
+Output Format: Print one integer — the maximum number of points you can earn.
+
+Sample Input 0:
+
+4 2
+1 2 1 2
+
+Sample Output 0:
+
+0
+
+Sample Input 1:
+
+6 2
+1 2 1 2 1 2
+
+Sample Output 1:
+
+3
+
+n_k = input().split()
+n= int(n_k[0])
+k= int(n_k[1])
+cards = [card for card in input().split()]
+coins=0
+for i in range(0,n,k):
+    if cards[i] == cards[i+1]:
+        coins+=1
+print(coins)
+    
+3)Problem: Levko is fascinated by different types of sets. He has two arrays of integers x[1…xm] and y[1…ym], along with a prime number p. Today, he plans to generate a set z. Here’s how: Levko selects an element z from x; then he generates a new set containing just the numbers 1 ≤ i ≤ y[j] that satisfy (z mod i) = 0 for every i (where 1 ≤ i ≤ y[j]), if such number(s) exist. He is more curious about how many unique numbers each generated set has at least one element in common with both x[i], who wants to know the size of any element k from this set. For every z (where 1 ≤ k ≤ m), he creates another list r[k] equal to |x| - |y| + |z|. The first line contains three integers m, n, p space-separated integer lists; second line contains m space-separated integers that are in the list [x]; third line contains n space-separated integers that are in list [y].
+
+Input Format: The first line contains three integers m, n, p. The second line contains m space-separated integers b_1,b_2,…b_m (elements of array x). The third line contains n space-separated integers c_1,c_2,…c_n (elements of array y).
+
+Constraints:
+
+1 ≤ m,n ≤ 10^5
+2 ≤ p ≤ 10^9
+Output Format: A single integer denoting Q is your answer.
+
+Sample Input #0:
+
+4 1 7
+5 2 3 4
+3
+
+Sample Output #0:
+
+6
+
+def count_intersections(m, n, p, x, y):
+    # Initialize a dictionary to store counts of each element in x and y
+    count_x = {val: 0 for val in x}
+    count_y = {val: 0 for val in y}
+    
+    # Count occurrences of each element in x
+    for val in x:
+        count_x[val] += 1
+    
+    # Count occurrences of each element in y
+    for val in y:
+        count_y[val] += 1
+    
+    # Initialize Q to store the result
+    Q = 0
+    
+    # Iterate through each element z in x
+    for z in x:
+        # Set S(z) which contains i such that z % i == 0 for all i in y
+        S_z = set()
+        for i in y:
+            if z % i == 0:
+                S_z.add(i)
+        
+        # Calculate intersection sizes
+        intersection_x = 0
+        intersection_y = 0
+        
+        for i in S_z:
+            intersection_x += count_x[z]  # Count of z in x
+            intersection_y += count_y[i]  # Count of i in y
+        
+        # Size of intersection of intersection_x and intersection_y
+        Q += intersection_x * intersection_y
+    
+    return Q
+
+# Example usage:
+m, n, p = 4, 1, 7
+x = [5, 2, 3, 4]
+y = [3]
+
+result = count_intersections(m, n, p, x, y)
+print("Output:", result)
+
+    
